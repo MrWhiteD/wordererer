@@ -27,10 +27,7 @@ function parseResponse(response) {
         result = [];
     
     forEachInResult(responseObject, function (element) {
-        result.push({
-            word: element.word,
-            score: element.score
-        });
+        result.push(element.word);
     });
 
     return result;

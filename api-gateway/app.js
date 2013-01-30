@@ -27,17 +27,9 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
-
-var request = require('request');
-var jsdom = require('jsdom');
-
-var req_url = 'http://en.wikipedia.org/wiki/Search_engine';
-
-request({uri: req_url}, function(error, response, body){
-    if(!error && response.statusCode == 200){
-        var window = jsdom.jsdom(body).createWindow();
-        
-        var temp = window.document.getElementById('See_also');
-        console.log(temp);
-    }
+process.on('uncaughtException', function (err) {
+  console.log("Unhandled exception");
+  console.error(err);
 });
+
+

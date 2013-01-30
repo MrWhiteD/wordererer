@@ -10,10 +10,7 @@ function httpRequest(term, callback) {
         provider: PROVIDER
     };
 
-    console.log(ENDPOINT + encodeURI(term) + '/json');
     request(ENDPOINT + encodeURI(term) + '/json', function (error, response, body) {
-
-        console.log(response.statusCode);
 
         if (!error && response.statusCode == 200) {
             result.result = parseResponse(body) || [];

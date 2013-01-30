@@ -1,6 +1,7 @@
 
 var wordnik = require('../providers/wordnik'),
-    bighuge = require('../providers/bighuge');
+    bighuge = require('../providers/bighuge'),
+    wikipedia = require('../providers/wikipedia');
 
 /*
  * GET home page.
@@ -17,7 +18,7 @@ exports.harvest = function(req, res) {
 function getData(term, callback) {
 
     var count = 0,
-        expected = 2,
+        expected = 3,
         result = [];
 
     function onResponse (data) {
@@ -25,10 +26,15 @@ function getData(term, callback) {
         result.push(data);
 
         if (++count === expected) {
-            callback(result);
+            
+            callback({
+                apis: result
+            });
+
         }
     }
 
     bighuge.fetch(term, onResponse);
     wordnik.fetch(term, onResponse);
+    wikipedia.fetch(term, onResponse);
 } 

@@ -27,6 +27,12 @@ public class Provider {
         return result;
     }
 
+    public void setResult(List<String> result) {
+        this.result = result;
+    }
+    
+    
+
     @Override
     public String toString() {
         return "Provider{" + "name=" + name + ", result=" + result + '}';

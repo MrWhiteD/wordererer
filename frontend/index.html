@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html ng-app class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>wordererer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    </head>
+    <body>
+        
+    
+     
+        <div class="row">
+            <div class="pagination-centered">
+                <div class="hero-unit">
+                    <h1>Wordererer</h1>
+                    <p class="hidden-phone">A simple tool for finding related phrases or synonyms.<br/>Built with Java / Spring / Node.js / Bootstrap / HTML5 Boilerplate / AngularJS
+                </div>
+            </div>
+        </div>
+    <div ng-controller="SearchCtrl" class="container">
+        <div class="row">
+            <div class="span12 ">
+                <form ng-submit="search()">
+                    <div class="input-append pagination-centered">
+                        <input ng-model="searchTerm" class="span4" placeholder="Enter a word or phrase.." id="appendedInputButton" type="text">
+                        <input class="btn btn-primary" type="submit" value="Go!">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <div class="span4 offset2">
+                    <table class="table">
+                        <tbody>
+                            <tr ng-repeat="term in leftResult">
+                                <td>{{term}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="span4">
+                    <table class="table">
+                        <tbody>
+                            <tr ng-repeat="term in rightResult">
+                                <td>{{term}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+        
+    </body>
+</html>

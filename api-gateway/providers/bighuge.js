@@ -42,7 +42,6 @@ function parseJson(data) {
 }
 
 function forEachInResult(responseObject, callback) {
-    console.log(responseObject);
     if (responseObject.noun && responseObject.noun.syn) {
         for (var i = 0; i < responseObject.noun.syn.length; i++) {
             callback(responseObject.noun.syn[i]);

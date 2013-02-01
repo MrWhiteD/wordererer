@@ -29,15 +29,8 @@ public class CrossOriginHeaderFilter implements Filter {
         final HttpServletResponse response = (HttpServletResponse) res;
         final HttpServletRequest request = (HttpServletRequest) req;
 
-        final String referer = request.getHeader("Referer");
-        String origin = "*";
-
-        if (referer != null) {
-            final URL url = new URL(referer);
-            origin = url.getProtocol() + "://" + url.getHost(); 
-        }
-
-        response.setHeader("Access-Control-Allow-Origin", origin);
+      
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET");
 
         chain.doFilter(req, res);

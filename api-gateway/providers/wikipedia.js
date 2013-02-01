@@ -52,9 +52,6 @@ function handleResponse(body, callback, result) {
         if (end1 < 0) end1 = 300000000;
         if (end2 < 0) end2 = 300000000;
         var cutTo = (end1 < end2) ? end1 : end2;
-
-        console.log(end1 + ", " + end2);
-        console.log(cutTo);
         
         var seeAlsoSection = clutterRemoved.slice(0, cutTo);
         

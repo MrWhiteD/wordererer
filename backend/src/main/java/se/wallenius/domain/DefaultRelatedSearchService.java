@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import se.wallenius.domain.proxyclient.Provider;
 import se.wallenius.domain.proxyclient.ProxyClient;
@@ -20,14 +22,22 @@ import se.wallenius.domain.proxyclient.ProxyClient;
 @Service
 public class DefaultRelatedSearchService implements RelatedSearchService {
     
-    private final static int RESULT_AMOUNT = 15;
+    @Autowired
+    private ProxyClient proxyClient;
+    
+    private final static int RESULT_AMOUNT = 16;
 
+    @Cacheable("terms")
     @Override
     public List<Suggestion> findRelatedPhrases(String term) {
         
-        final List<Provider> providers = new ProxyClient().requestForTerm(term);
+        final List<Provider> providers = proxyClient.requestForTerm(term);
         
-        toLowerCase(providers);
+        if (providers == null) {
+            return emptyList();
+        }
+        
+        makeAllResponsesLowerCase(providers);
         removeDuplicates(providers);
         
         // First pick the words received from several APIs
@@ -42,7 +52,11 @@ public class DefaultRelatedSearchService implements RelatedSearchService {
         return this.createSuggestionList(finalResult);
     }
     
-    private void toLowerCase(List<Provider> providers) {
+    private List<Suggestion> emptyList() {
+        return new ArrayList<Suggestion>();
+    }
+    
+    private void makeAllResponsesLowerCase(List<Provider> providers) {
         for (Provider provider : providers) {
             List<String> lowercaseOnly = new ArrayList<String>();
             for (String word : provider.getResult()) {
@@ -107,5 +121,5 @@ public class DefaultRelatedSearchService implements RelatedSearchService {
         }
         return result;
     }
-    
+
 }

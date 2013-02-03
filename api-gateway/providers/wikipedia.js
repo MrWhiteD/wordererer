@@ -21,10 +21,13 @@ function scrape(term, callback) {
 
     var wikiTerm = makeWikiTerm(term);
 
+    console.log("Wiki calling: " + wikiTerm);
+
     request(ENDPOINT + wikiTerm, function (error, response, body) {
 
         if (error) {
-            console.log("REQUEST ERROR");
+            console.log(PROVIDER + ": REQUEST ERROR (wiki)");
+            console.log(error);
             callback(result);
         } else {
 

@@ -35,19 +35,22 @@
                 <form ng-submit="search()">
                     <div class="input-append pagination-centered">
                         <input ng-model="searchTerm" class="span4" placeholder="Enter a word or phrase.." id="appendedInputButton" type="text">
-                        <input class="btn btn-primary" type="submit" value="Go!">
+                        <input class="btn btn-primary btn-request-{{isRequesting}}" type="submit" value="Go!">
                     </div>
                 </form>
             </div>
         </div>
 
         <div class="row">
+            <div class="span12 pagination-centered show-request-{{isRequesting}}">
+                <img class="" src="img/ajax-loader.gif" />
+            </div>
             <div class="span12">
                 <div class="span4 offset2">
                     <table class="table">
                         <tbody>
                             <tr ng-repeat="term in leftResult">
-                                <td>{{term}}</td>
+                                <td><a href="" ng-click="searchClick(term)">{{term}}</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -56,7 +59,7 @@
                     <table class="table">
                         <tbody>
                             <tr ng-repeat="term in rightResult">
-                                <td>{{term}}</td>
+                                <td><a href="" ng-click="searchClick(term)">{{term}}</a></td>
                             </tr>
                         </tbody>
                     </table>

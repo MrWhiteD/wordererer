@@ -18,11 +18,13 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author fredrik
  */
+@Component
 public class ProxyClient {
 
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();

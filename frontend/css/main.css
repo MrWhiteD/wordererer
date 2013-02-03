@@ -304,3 +304,11 @@ textarea {
 td {
     text-align: center !important;
 }
+
+.show-request-true {
+    display: block;
+}
+
+.show-request-false {
+    display: none;
+}

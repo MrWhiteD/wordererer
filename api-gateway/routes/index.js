@@ -23,6 +23,9 @@ function getData(term, callback) {
 
     function onResponse (data) {
 
+        console.log(data.provider + ": Result for term " + term);
+        console.log(data.result);
+
         result.push(data);
 
         if (++count === expected) {

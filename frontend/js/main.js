@@ -1,53 +1,56 @@
 
-function SearchCtrl ($scope, $http) {
+(function(window){
 
-    $scope.leftResult = [];
-    $scope.rightResult = [];
+    var searchController = function ($scope, $http) {
 
-    $scope.isRequesting = false;
+        $scope.leftResult = [];
+        $scope.rightResult = [];
 
-
-    $scope.search = function() {
-
-        var term = $scope.searchTerm;
-
-        if (term && term.length > 0) {
-
-            $scope.isRequesting = true;
-            $scope.leftResult = [];
-            $scope.rightResult = [];
+        $scope.isRequesting = false;
 
 
+        $scope.search = function() {
 
-            $http.get("http://192.168.1.3:8080/backend/search/" + encodeURI(term))
-            .success(function(data) {
+            var term = $scope.searchTerm;
 
-                $scope.isRequesting = false;
-                handleResponse(data);
-            }).error(function(data, status, headers, config) {
-                
-                $scope.isRequesting = false;
-                console.log("Error");
-            });
+            if (term && term.length > 0) {
 
+                $scope.isRequesting = true;
+                $scope.leftResult = [];
+                $scope.rightResult = [];
+
+
+
+                $http.get(window.Worderer.url + encodeURI(term))
+                .success(function(data) {
+                    $scope.isRequesting = false;
+                    handleResponse(data);
+                }).error(function(data, status, headers, config) {
+                    $scope.isRequesting = false;
+                    console.log("Error");
+                });
+
+            }
+        };
+
+        $scope.searchClick = function(term) {
+            $scope.searchTerm = term;
+            $scope.search();    
         }
-    };
 
-    $scope.searchClick = function(term) {
-        $scope.searchTerm = term;
-        $scope.search();
-    }
-
-    function handleResponse(result) {
-        for (var i = 0; i < result.length; i++) {
-            if (i%2 === 0) {
-                $scope.leftResult.push(result[i].phrase);
-            } else {
-                $scope.rightResult.push(result[i].phrase);
+        function handleResponse(result) {
+            for (var i = 0; i < result.length; i++) {
+                if (i%2 === 0) {
+                    $scope.leftResult.push(result[i].phrase);
+                } else {
+                    $scope.rightResult.push(result[i].phrase);
+                }
             }
         }
     }
 
+    // Register globally accessible function/variables
+    window.SearchCtrl = searchController;
 
+}(window));
 
-}

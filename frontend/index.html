@@ -15,12 +15,10 @@
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+        <script src="js/vendor/angular.min.js"></script>
     </head>
     <body>
         
-    
-     
         <div class="row">
             <div class="pagination-centered">
                 <div class="hero-unit">
@@ -29,49 +27,46 @@
                 </div>
             </div>
         </div>
-    <div ng-controller="SearchCtrl" class="container">
-        <div class="row">
-            <div class="span12 ">
-                <form ng-submit="search()">
-                    <div class="input-append pagination-centered">
-                        <input ng-model="searchTerm" class="span4" placeholder="Enter a word or phrase.." id="appendedInputButton" type="text">
-                        <input class="btn btn-primary btn-request-{{isRequesting}}" type="submit" value="Go!">
+        <div ng-controller="SearchCtrl" class="container">
+            <div class="row">
+                <div class="span12 ">
+                    <form ng-submit="search()">
+                        <div class="input-append pagination-centered">
+                            <input ng-model="searchTerm" class="span4" placeholder="Enter a word or phrase.." id="appendedInputButton" type="text">
+                            <input class="btn btn-primary btn-request-{{isRequesting}}" type="submit" value="Go!">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12 pagination-centered show-request-{{isRequesting}}">
+                    <img class="" src="img/ajax-loader.gif" />
+                </div>
+                <div class="span12">
+                    <div class="span4 offset2">
+                        <table class="table">
+                            <tbody>
+                                <tr ng-repeat="term in leftResult">
+                                    <td><a href="" ng-click="searchClick(term)">{{term}}</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="span12 pagination-centered show-request-{{isRequesting}}">
-                <img class="" src="img/ajax-loader.gif" />
-            </div>
-            <div class="span12">
-                <div class="span4 offset2">
-                    <table class="table">
-                        <tbody>
-                            <tr ng-repeat="term in leftResult">
-                                <td><a href="" ng-click="searchClick(term)">{{term}}</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="span4">
-                    <table class="table">
-                        <tbody>
-                            <tr ng-repeat="term in rightResult">
-                                <td><a href="" ng-click="searchClick(term)">{{term}}</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="span4">
+                        <table class="table">
+                            <tbody>
+                                <tr ng-repeat="term in rightResult">
+                                    <td><a href="" ng-click="searchClick(term)">{{term}}</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
-    </div>
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
-        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="config.js"
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
 

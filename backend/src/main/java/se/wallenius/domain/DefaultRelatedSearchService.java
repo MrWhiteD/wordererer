@@ -10,7 +10,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import se.wallenius.domain.proxyclient.Provider;
 import se.wallenius.domain.proxyclient.ProxyClient;
@@ -27,7 +26,6 @@ public class DefaultRelatedSearchService implements RelatedSearchService {
     
     private final static int RESULT_AMOUNT = 16;
 
-    @Cacheable("terms")
     @Override
     public List<Suggestion> findRelatedPhrases(String term) {
         
@@ -40,13 +38,13 @@ public class DefaultRelatedSearchService implements RelatedSearchService {
         makeAllResponsesLowerCase(providers);
         removeDuplicates(providers);
         
-        // First pick the words received from several APIs
+        // First pick the words found in several API-responses
         Set<String> higestRanked = this.findWordsExistingInSeveral(providers);
         
         // Result object - Linkedset to keep order
         Set<String> finalResult = new LinkedHashSet<String>(higestRanked);
         
-        // Take the best from all
+        // Take the best from all (I'm assuming they are in qualityt order, not true for wikipedia though..)
         fillUpWithHighestRanked(finalResult, convertProvidersToLists(providers));
         
         return this.createSuggestionList(finalResult);
@@ -67,7 +65,6 @@ public class DefaultRelatedSearchService implements RelatedSearchService {
     }
     
     private void removeDuplicates(List<Provider> providers) {
-        // Using LinkedHashSet to keep order
         for (Provider provider : providers) {
             Set<String> noDuplicates = new LinkedHashSet<String>(provider.getResult());
             provider.setResult(new ArrayList<String>(noDuplicates));
@@ -85,7 +82,6 @@ public class DefaultRelatedSearchService implements RelatedSearchService {
                 }
             }
         }
-        
         return duplicates;
     }
     

@@ -16,8 +16,6 @@ import com.google.api.client.json.jackson.JacksonFactory;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.stereotype.Component;
 
 /**
@@ -26,12 +24,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ProxyClient {
+    
+    private static final String APIURL = "http://localhost:3000/harvest?term=";
 
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private static final JsonFactory JSON_FACTORY = new JacksonFactory();
 
     public List<Provider> requestForTerm(final String term) {
 
+        // This way it should be thread safe.
         final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(new HttpRequestInitializer() {
             @Override
             public void initialize(HttpRequest request) {
@@ -40,9 +41,8 @@ public class ProxyClient {
         });
 
 
-        try {
-         
-            final GenericUrl url = new GenericUrl("http://localhost:3000/harvest?term=" + URLEncoder.encode(term, "UTF-8"));
+        try {         
+            final GenericUrl url = new GenericUrl(APIURL + URLEncoder.encode(term, "UTF-8"));
         
             HttpRequest request = requestFactory.buildGetRequest(url);
             Response response = request.execute().parseAs(Response.class);
@@ -51,7 +51,8 @@ public class ProxyClient {
             
             
         } catch (IOException ex) {
-            Logger.getLogger(ProxyClient.class.getName()).log(Level.SEVERE, null, ex);
+            // No logger configured so just sending to stderr
+            System.err.println(ex);
         } 
 
         return null;

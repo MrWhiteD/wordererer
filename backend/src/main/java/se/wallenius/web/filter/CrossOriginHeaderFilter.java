@@ -5,7 +5,6 @@
 package se.wallenius.web.filter;
 
 import java.io.IOException;
-import java.net.URL;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -32,7 +31,6 @@ public class CrossOriginHeaderFilter implements Filter {
       
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "GET");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
 
         chain.doFilter(req, res);
     }

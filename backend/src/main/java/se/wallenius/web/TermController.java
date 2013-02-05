@@ -18,7 +18,7 @@ public class TermController {
     private RelatedSearchService relatedSearchService;
     
     
-    @RequestMapping(value = "/{term}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/{term}", method = RequestMethod.GET)
     @ResponseBody
     public List<Suggestion> getSuggestions(@PathVariable(value="term") final String searchTerm) {
         
